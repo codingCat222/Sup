@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Wura</title>
+    <title>For Wura - Summertime Sadness</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -96,6 +96,22 @@
             opacity: 0.8;
             font-weight: 300;
             letter-spacing: 0.5px;
+        }
+
+        /* Floating Wura Text */
+        .floating-wura {
+            position: fixed;
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.7;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            animation: floatAround 25s infinite linear;
         }
 
         /* Main Content */
@@ -372,6 +388,68 @@
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* Music Page */
+        .music-player {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .song-info {
+            margin: 2rem 0;
+        }
+
+        .song-title {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .artist {
+            font-size: 1.3rem;
+            color: var(--light);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .lyrics-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .lyric-line {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .spotify-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .spotify-link:hover {
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
         /* Navigation */
         .nav-buttons {
             position: fixed;
@@ -436,6 +514,77 @@
             transform: scale(1.2);
         }
 
+        /* Music Controls */
+        .music-controls {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            font-size: 1.2rem;
+            color: var(--light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .music-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .music-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--accent);
+            box-shadow: 0 0 20px rgba(6, 214, 160, 0.5);
+        }
+
+        /* Music Player */
+        .audio-player {
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+        }
+
         /* Animations */
         @keyframes subtleGlow {
             0%, 100% { filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3)); }
@@ -468,6 +617,14 @@
             30% { transform: scale(1.2); opacity: 1; }
         }
 
+        @keyframes floatAround {
+            0% { transform: translate(10vw, 10vh) rotate(0deg); }
+            25% { transform: translate(80vw, 30vh) rotate(90deg); }
+            50% { transform: translate(60vw, 70vh) rotate(180deg); }
+            75% { transform: translate(20vw, 50vh) rotate(270deg); }
+            100% { transform: translate(10vw, 10vh) rotate(360deg); }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             h1 { font-size: 2.8rem; }
@@ -479,6 +636,10 @@
             .ghost-icon { font-size: 4.5rem; }
             .poll-options { grid-template-columns: 1fr; }
             .chat-container { height: 55vh; padding: 1.5rem; }
+            .music-controls { top: 1rem; right: 1rem; }
+            .floating-wura { font-size: 3rem; }
+            .song-title { font-size: 1.7rem; }
+            .artist { font-size: 1.1rem; }
         }
 
         @media (max-width: 480px) {
@@ -493,6 +654,12 @@
             .wura-text { font-size: 2.8rem; }
             .nav-buttons { bottom: 1.5rem; right: 1.5rem; }
             .nav-btn { width: 50px; height: 50px; font-size: 1.1rem; }
+            .music-controls { top: 0.5rem; right: 0.5rem; }
+            .music-btn { width: 40px; height: 40px; font-size: 1rem; }
+            .floating-wura { font-size: 2.5rem; }
+            .song-title { font-size: 1.5rem; }
+            .artist { font-size: 1rem; }
+            .lyric-line { font-size: 1rem; }
         }
     </style>
 </head>
@@ -503,6 +670,25 @@
             <div class="wura-text">Wura</div>
             <div class="sad-emoji">😔</div>
             <div class="preloader-subtitle">Loading a special experience...</div>
+        </div>
+    </div>
+
+    <!-- Floating Wura Text -->
+    <div class="floating-wura" id="floating-wura">Wura</div>
+
+    <!-- Music Controls -->
+    <div class="music-controls">
+        <div class="music-btn" id="play-btn">
+            <i class="fas fa-play"></i>
+        </div>
+        <div class="music-btn" id="pause-btn">
+            <i class="fas fa-pause"></i>
+        </div>
+        <div class="music-btn" id="volume-up-btn">
+            <i class="fas fa-volume-up"></i>
+        </div>
+        <div class="music-btn" id="volume-down-btn">
+            <i class="fas fa-volume-down"></i>
         </div>
     </div>
 
@@ -542,21 +728,67 @@
                 <p class="text-center">Every story has its reasons. What led to the quiet moments?</p>
                 <div class="interactive-container">
                     <div class="poll-options">
-                        <div class="poll-option" data-option="1">Life became overwhelming and priorities shifted</div>
-                        <div class="poll-option" data-option="2">The connection didn't feel as authentic as it once did</div>
-                        <div class="poll-option" data-option="3">Sometimes people just drift apart naturally</div>
-                        <div class="poll-option" data-option="4">New chapters began that didn't include our story</div>
+                        <div class="poll-option" data-option="1">I was busy with work and life got overwhelming</div>
+                        <div class="poll-option" data-option="2">I felt the connection wasn't right for me anymore</div>
+                        <div class="poll-option" data-option="3">I didn't know how to tell you I needed space</div>
+                        <div class="poll-option" data-option="4">I met someone else and didn't know how to say it</div>
                     </div>
                     
                     <div class="runaway-btn-container">
                         <button class="btn runaway-btn" id="apologize-btn">
                             <i class="fas fa-heart"></i>
-                            Extend an Olive Branch
+                            Tell Me What I Did Wrong
                         </button>
                     </div>
                     
                     <h3>The Art of Letting Go</h3>
                     <p>Sometimes the most meaningful connections are those that teach us how to grow, even when they don't last forever.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Page -->
+    <section id="music-page" class="page">
+        <div class="container">
+            <div class="glass-card">
+                <h2>Summertime Sadness</h2>
+                <div class="music-player">
+                    <div class="song-info">
+                        <div class="song-title">Summertime Sadness</div>
+                        <div class="artist">Lana Del Rey</div>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <div class="progress-bar" id="progress-bar">
+                            <div class="progress" id="progress"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="current-time">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyric-line"><span class="highlight">Kiss me hard before you go</span></div>
+                        <div class="lyric-line">Summertime sadness</div>
+                        <div class="lyric-line"><span class="highlight">I just wanted you to know</span></div>
+                        <div class="lyric-line">That, baby, you the best</div>
+                        <div class="lyric-line">I got my red dress on tonight</div>
+                        <div class="lyric-line">Dancing in the dark in the pale moonlight</div>
+                        <div class="lyric-line">Done my hair up real big, beauty queen style</div>
+                        <div class="lyric-line">High heels off, I'm feeling alive</div>
+                        <div class="lyric-line">&nbsp;</div>
+                        <div class="lyric-line">Think I'll miss you forever</div>
+                        <div class="lyric-line">Like the stars miss the sun in the morning sky</div>
+                        <div class="lyric-line">Later's better than never</div>
+                        <div class="lyric-line">Even if you're gone, I'm gonna drive, drive, drive</div>
+                    </div>
+                    
+                    <a href="https://open.spotify.com/track/1Ist6PR2BZR3n2z2Y5R6S1" target="_blank" class="spotify-link">
+                        <i class="fab fa-spotify"></i>
+                        Listen on Spotify
+                    </a>
                 </div>
             </div>
         </div>
@@ -572,22 +804,38 @@
         <div class="progress-dot active" data-page="0"></div>
         <div class="progress-dot" data-page="1"></div>
         <div class="progress-dot" data-page="2"></div>
+        <div class="progress-dot" data-page="3"></div>
     </div>
 
     <!-- Hidden Audio -->
-    <audio id="background-music" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_ec6c2f9445.mp3?filename=lana-del-rey-summertime-sadness-122125.mp3" type="audio/mpeg">
+    <audio id="background-music" preload="metadata">
+        <!-- Primary source - Summertime Sadness -->
+        <source src="https://audio.jukehost.co.uk/4VqCqJYx4gZv6sJ9y5m9c7K8X2v5M5k2" type="audio/mpeg">
+        <!-- Fallback 1 - Another Summertime Sadness source -->
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tours/Enthusiast/Tours_-_Enthusiast.mp3" type="audio/mpeg">
+        <!-- Fallback 2 - A different emotional song -->
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Yung_Kartz/Throwbacks/Throwbacks/Yung_Kartz_-_11_-_Throwbacks.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
     <script>
         // Global variables
         let currentPage = 0;
-        const totalPages = 3;
+        const totalPages = 4;
         let chatMessages = [];
+        let musicStarted = false;
+        let isPlaying = false;
+        let currentAudioSource = 0;
+        const audioSources = [
+            "https://audio.jukehost.co.uk/4VqCqJYx4gZv6sJ9y5m9c7K8X2v5M5k2",
+            "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tours/Enthusiast/Tours_-_Enthusiast.mp3",
+            "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Yung_Kartz/Throwbacks/Throwbacks/Yung_Kartz_-_11_-_Throwbacks.mp3"
+        ];
 
         // DOM Elements
         const preloader = document.getElementById('preloader');
         const backgroundMusic = document.getElementById('background-music');
+        const floatingWura = document.getElementById('floating-wura');
         const pages = document.querySelectorAll('.page');
         const progressDots = document.querySelectorAll('.progress-dot');
         const prevPageBtn = document.getElementById('prev-page-btn');
@@ -596,6 +844,16 @@
         const chatContainer = document.getElementById('chat-container');
         const pollOptions = document.querySelectorAll('.poll-option');
         const apologizeBtn = document.getElementById('apologize-btn');
+        
+        // Music controls
+        const playBtn = document.getElementById('play-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const volumeUpBtn = document.getElementById('volume-up-btn');
+        const volumeDownBtn = document.getElementById('volume-down-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progress = document.getElementById('progress');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
 
         // Initialize the website
         function init() {
@@ -607,6 +865,12 @@
             
             // Initialize chat simulation
             initChatSimulation();
+            
+            // Start floating Wura animation
+            startFloatingWura();
+            
+            // Set up music player
+            setupMusicPlayer();
         }
 
         // Set up event listeners
@@ -634,6 +898,220 @@
             });
             
             apologizeBtn.addEventListener('mouseover', moveAwayButton);
+            
+            // Music controls
+            playBtn.addEventListener('click', playMusic);
+            pauseBtn.addEventListener('click', pauseMusic);
+            volumeUpBtn.addEventListener('click', () => adjustVolume(0.1));
+            volumeDownBtn.addEventListener('click', () => adjustVolume(-0.1));
+            
+            // Progress bar
+            progressBar.addEventListener('click', seek);
+            
+            // Allow music to start on any user interaction
+            document.body.addEventListener('click', function() {
+                if (!musicStarted) {
+                    startMusic();
+                }
+            }, { once: true });
+        }
+
+        // Set up music player
+        function setupMusicPlayer() {
+            backgroundMusic.addEventListener('loadedmetadata', () => {
+                durationEl.textContent = formatTime(backgroundMusic.duration);
+            });
+            
+            backgroundMusic.addEventListener('timeupdate', updateProgress);
+            
+            backgroundMusic.addEventListener('ended', () => {
+                isPlaying = false;
+                playBtn.classList.remove('active');
+                pauseBtn.classList.remove('active');
+            });
+            
+            // Handle audio errors by trying next source
+            backgroundMusic.addEventListener('error', () => {
+                console.log("Audio error, trying next source...");
+                tryNextAudioSource();
+            });
+        }
+
+        // Try next audio source if current one fails
+        function tryNextAudioSource() {
+            currentAudioSource++;
+            if (currentAudioSource < audioSources.length) {
+                backgroundMusic.src = audioSources[currentAudioSource];
+                backgroundMusic.load();
+                backgroundMusic.play().catch(e => {
+                    console.log("Failed to play audio source " + currentAudioSource, e);
+                    if (currentAudioSource < audioSources.length - 1) {
+                        tryNextAudioSource();
+                    } else {
+                        showMusicError();
+                    }
+                });
+            } else {
+                showMusicError();
+            }
+        }
+
+        // Show music error message
+        function showMusicError() {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--glass);
+                backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
+                padding: 2rem;
+                border-radius: 20px;
+                color: white;
+                text-align: center;
+                max-width: 400px;
+                z-index: 1000;
+                animation: elegantFadeIn 0.5s ease-out;
+            `;
+            notification.innerHTML = `
+                <h3>Music Unavailable</h3>
+                <p>We couldn't load the background music. Please try refreshing the page or check your internet connection.</p>
+                <button class="btn" style="margin-top: 1rem;" id="close-music-error">OK</button>
+            `;
+            document.body.appendChild(notification);
+            
+            document.getElementById('close-music-error').addEventListener('click', () => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            });
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            if (backgroundMusic.duration) {
+                const progressPercent = (backgroundMusic.currentTime / backgroundMusic.duration) * 100;
+                progress.style.width = `${progressPercent}%`;
+                currentTimeEl.textContent = formatTime(backgroundMusic.currentTime);
+            }
+        }
+
+        // Format time in minutes:seconds
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Seek to position in song
+        function seek(e) {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            backgroundMusic.currentTime = percent * backgroundMusic.duration;
+        }
+
+        // Floating Wura animation
+        function startFloatingWura() {
+            // Create multiple floating Wura texts
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const newWura = document.createElement('div');
+                    newWura.className = 'floating-wura';
+                    newWura.textContent = 'Wura';
+                    newWura.style.animationDelay = `${i * 8}s`;
+                    document.body.appendChild(newWura);
+                    
+                    // Remove after animation completes
+                    setTimeout(() => {
+                        if (newWura.parentNode) {
+                            newWura.parentNode.removeChild(newWura);
+                        }
+                    }, 25000);
+                }, i * 8000);
+            }
+        }
+
+        // Music functions
+        function startMusic() {
+            backgroundMusic.volume = 0.5;
+            const playPromise = backgroundMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Summertime Sadness started successfully");
+                    musicStarted = true;
+                    isPlaying = true;
+                    playBtn.classList.add('active');
+                }).catch(error => {
+                    console.log("Autoplay prevented:", error);
+                    // Show a message to the user
+                    showMusicPrompt();
+                });
+            }
+        }
+        
+        function playMusic() {
+            backgroundMusic.play().then(() => {
+                console.log("Music resumed");
+                isPlaying = true;
+                playBtn.classList.add('active');
+                pauseBtn.classList.remove('active');
+            }).catch(error => {
+                console.log("Play error:", error);
+                showMusicPrompt();
+            });
+        }
+        
+        function pauseMusic() {
+            backgroundMusic.pause();
+            console.log("Music paused");
+            isPlaying = false;
+            pauseBtn.classList.add('active');
+            playBtn.classList.remove('active');
+        }
+        
+        function adjustVolume(change) {
+            let newVolume = backgroundMusic.volume + change;
+            if (newVolume < 0) newVolume = 0;
+            if (newVolume > 1) newVolume = 1;
+            backgroundMusic.volume = newVolume;
+            console.log("Volume set to:", newVolume);
+        }
+        
+        function showMusicPrompt() {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--glass);
+                backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
+                padding: 2rem;
+                border-radius: 20px;
+                color: white;
+                text-align: center;
+                max-width: 400px;
+                z-index: 1000;
+                animation: elegantFadeIn 0.5s ease-out;
+            `;
+            notification.innerHTML = `
+                <h3>Music Playback</h3>
+                <p>Click the play button in the top right corner to start Summertime Sadness.</p>
+                <button class="btn" style="margin-top: 1rem;" id="close-music-prompt">OK</button>
+            `;
+            document.body.appendChild(notification);
+            
+            document.getElementById('close-music-prompt').addEventListener('click', () => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            });
         }
 
         // Preloader function
@@ -676,45 +1154,43 @@
 
         // Start the experience
         function startExperience() {
-            // Play Summertime Sadness immediately
-            backgroundMusic.volume = 0.7;
-            
-            const playPromise = backgroundMusic.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    console.log("Music started successfully");
-                }).catch(error => {
-                    console.log("Autoplay prevented:", error);
-                    // If autoplay is blocked, show a message
-                    setTimeout(() => {
-                        alert("The experience includes background music. Please allow audio to play for the full effect.");
-                        backgroundMusic.play();
-                    }, 1000);
-                });
+            // Start music if not already started
+            if (!musicStarted) {
+                startMusic();
             }
             
             // Go to next page
             goToNextPage();
         }
 
-        // Chat simulation
+        // Chat simulation - REAL GHOSTING EXPERIENCE
         function initChatSimulation() {
             chatMessages = [
-                { text: "Hey Wura, hope you're having a good week 🌟", sender: "me", delay: 1000 },
-                { text: "Came across this article that made me think of our conversations", sender: "me", delay: 3000 },
-                { text: "Would love to hear your thoughts when you have a moment", sender: "me", delay: 6000 },
+                { text: "Hey Wura, how are you doing?", sender: "me", delay: 1000 },
+                { text: "How are your studies going?", sender: "me", delay: 3000 },
+                { text: "Are you there?", sender: "me", delay: 6000 },
                 { text: "Seen 2:14 PM", sender: "system", delay: 9000 },
-                { text: "No worries, I know you're busy with everything", sender: "me", delay: 12000 },
-                { text: "Just checking in, hope all is well", sender: "me", delay: 18000 },
-                { text: "Hey", sender: "them", delay: 24000 },
-                { text: "Typing...", sender: "typing", delay: 27000, removeAfter: 3000 },
-                { text: "Sorry been swamped", sender: "them", delay: 31000 },
-                { text: "No problem at all! How have things been?", sender: "me", delay: 35000 },
-                { text: "Typing...", sender: "typing", delay: 39000, removeAfter: 4000 },
-                { text: "Busy but good", sender: "them", delay: 44000 },
-                { text: "That's good to hear! Would you be open to catching up sometime?", sender: "me", delay: 48000 },
+                { text: "I hope everything is okay with you", sender: "me", delay: 12000 },
+                { text: "Hey", sender: "them", delay: 18000 },
+                { text: "Typing...", sender: "typing", delay: 21000, removeAfter: 3000 },
+                { text: "Sorry been really busy with assignments", sender: "them", delay: 25000 },
+                { text: "No problem, I understand", sender: "me", delay: 29000 },
+                { text: "How have you been? Everything alright?", sender: "me", delay: 33000 },
+                { text: "Seen 3:45 PM", sender: "system", delay: 38000 },
+                { text: "Are you okay? You've been distant lately", sender: "me", delay: 43000 },
+                { text: "Did something happen?", sender: "me", delay: 48000 },
                 { text: "Seen 4:27 PM", sender: "system", delay: 53000 },
+                { text: "Wura? Are we okay?", sender: "me", delay: 58000 },
+                { text: "I feel like you're avoiding me", sender: "me", delay: 63000 },
+                { text: "Seen 5:12 PM", sender: "system", delay: 68000 },
+                { text: "Please just tell me if I should stop texting you", sender: "me", delay: 73000 },
+                { text: "This silence is really confusing", sender: "me", delay: 78000 },
+                { text: "Seen 6:30 PM", sender: "system", delay: 83000 },
+                { text: "Okay... I'll take the hint", sender: "me", delay: 88000 },
+                { text: "Take care of yourself", sender: "me", delay: 93000 },
+                { text: "Seen 7:15 PM", sender: "system", delay: 98000 },
+                { text: "Last message: I hope you find what you're looking for", sender: "me", delay: 103000 },
+                { text: "Seen 8:02 PM", sender: "system", delay: 108000 }
             ];
         }
 
@@ -770,10 +1246,10 @@
         // Interactive elements
         function showPollResult(option) {
             const messages = {
-                '1': "Life has a way of redirecting our paths. I understand how priorities can shift.",
-                '2': "Authenticity matters most. I appreciate your honesty about how the connection felt.",
-                '3': "The natural ebb and flow of relationships is something we all experience.",
-                '4': "New chapters bring new stories. I hope yours is filled with meaningful connections."
+                '1': "I understand work can be overwhelming. A simple 'I need space' would have been enough.",
+                '2': "I wish you had told me the connection wasn't working for you instead of ghosting.",
+                '3': "Communication is important. I would have understood if you needed space.",
+                '4': "That hurts, but honesty would have been better than leaving me wondering."
             };
             
             // Create a beautiful notification
